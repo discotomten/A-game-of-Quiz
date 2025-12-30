@@ -13,4 +13,9 @@ const backBtn = document.getElementById("backBtn");
 function showQuestion() {
   const q = questions[currentIndex];
   questionDiv.textContent = q.question;
+
+  optionsDiv.innerHTML = "";
+  for (const key in q.options) {
+    const option = q.options[key];
+
 }
