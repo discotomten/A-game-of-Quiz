@@ -10,3 +10,7 @@ const questionDiv = document.getElementById("question");
 const nextBtn = document.getElementById("nextBtn");
 const optionsDiv = document.getElementById("options");
 const backBtn = document.getElementById("backBtn");
+function showQuestion() {
+  const q = questions[currentIndex];
+  questionDiv.textContent = q.question;
+}
