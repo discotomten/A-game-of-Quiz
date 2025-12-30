@@ -18,4 +18,16 @@ function showQuestion() {
   for (const key in q.options) {
     const option = q.options[key];
 
+    const label = document.createElement("label");
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = "answer";
+    input.value = key;
+
+    label.appendChild(input);
+    label.appendChild(document.createTextNode(option));
+    optionsDiv.appendChild(label);
+    optionsDiv.appendChild(document.createElement("br"));
+  }
+}
 }
