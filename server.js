@@ -18,6 +18,12 @@ app.get("/api/quiz/:category", (req, res) => {
   res.json(getQuestions);
 });
 
+app.post("/api/quiz/:category", (req, res) => {
+  const { category } = req.params;
+  const { questionId, answer } = req.body;
+  const getQuestions = questions[category];
+
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
