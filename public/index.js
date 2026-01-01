@@ -69,6 +69,13 @@ function showQuestion() {
     optionsDiv.appendChild(document.createElement("br"));
   }
 }
+nextBtn.addEventListener("click", async () => {
+  const selected = document.querySelector(`input[name="answer"]:checked`);
+  if (!selected) {
+    alert("Välj ett svar");
+    return;
+  }
+});
 //En riktig shuffle med Fisher-Yates vad det nu betyder
 function shuffle(array) {
   const copy = [...array];
