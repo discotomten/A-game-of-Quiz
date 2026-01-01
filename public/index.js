@@ -22,6 +22,11 @@ settingsBtn.addEventListener("click", () => {
   startMenu.classList.add("hide");
   settingScreen.classList.add("show");
 });
+//Tillbaka till startmeny
+backBtn.addEventListener("click", () => {
+  settingScreen.classList.remove("show");
+  startMenu.classList.remove("hide");
+});
 //Startar quizet
 startBtn.addEventListener("click", async () => {
   selectedCategory = categorySelect.value;
