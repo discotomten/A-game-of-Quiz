@@ -17,10 +17,6 @@ app.use(express.static("public"));
 app.get("/api/quiz/:category", (req, res) => {
   const { category } = req.params;
   const getQuestions = questions[category];
-
-  if (!getQuestions) {
-    return res.status(404).json({ error: "Category not found" });
-  }
   res.json(getQuestions);
 });
 
@@ -29,14 +25,7 @@ app.post("/api/quiz/:category", (req, res) => {
   const { questionId, answer } = req.body;
   const getQuestions = questions[category];
 
-  if (!getQuestions) {
-    return res.status(404).json({ error: "Category not found" });
-  }
-
   const question = getQuestions.find((q) => q.id === Number(questionId));
-  if (!question) {
-    return res.status(404).json({ error: "Question not found" });
-  }
 
   res.json({
     correct: answer === question.correct,
