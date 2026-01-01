@@ -25,6 +25,23 @@ header{
     justify-content: center;
     align-items: center;
 }
+select,label, .questionText{
+    font-weight: bold;
+    color: var(--text);
+    background: var(--menuBg);
+    font-size: 15px ;
+}
+select:hover{
+    box-shadow: 
+inset -1px -1px 0 #ccccaa,
+inset 1px 1px 0 #ccccaa;
+}
+.categoryHolder{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding-top: 15px;
+}
 .startMenu{
     position: absolute;
     display: flex;
