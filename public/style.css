@@ -16,6 +16,20 @@
     background: var(--menuBg);
     border-radius: 5px 5px;
     row-gap: 5rem;
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.startMenu.hide{
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+}
+.buttonHolder{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
 .quizScreen{
     display: none;
     display: flex;
