@@ -43,6 +43,9 @@ app.post("/api/quiz/:category", (req, res) => {
   });
 });
 
+app.use((req, res) => {
+  res.status(404).sendFile(path.join(dirName, "public", "404.html"));
+});
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
