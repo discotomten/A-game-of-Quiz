@@ -17,6 +17,11 @@ let questions = [];
 let selectedCategory = "countries";
 let score = 0;
 let currentIndex = 0;
+//Settings dyker upp
+settingsBtn.addEventListener("click", () => {
+  startMenu.classList.add("hide");
+  settingScreen.classList.add("show");
+});
 //Startar quizet
 startBtn.addEventListener("click", async () => {
   selectedCategory = categorySelect.value;
