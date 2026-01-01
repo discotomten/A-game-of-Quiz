@@ -12,7 +12,7 @@ const nextBtn = document.getElementById("nextBtn");
 const optionsDiv = document.getElementById("options");
 const backBtn = document.getElementById("backBtn");
 
-const categories = ["countries", "animals"];
+const categories = ["geography", "animals", "music", "sport"];
 let questions = [];
 let selectedCategory = "countries";
 let score = 0;
@@ -59,7 +59,7 @@ async function fetchQuestions(category) {
         return data.map((q) => ({ ...q, category: cate })); // .map skapar en ny array genom att köra en given funktion på varje element i en befintlig array och returnera resultatet.
       })
     );
-    return shuffle(results.flat()); // .flat plattar ut en kapslad array genom att sammanfoga dess underarrayer till en ny array, orginalet lämnas orörd
+    return shuffle(results.flat()).slice(0, 10); // .flat plattar ut en kapslad array genom att sammanfoga dess underarrayer till en ny array, orginalet lämnas orörd
   } else {
     const res = await fetch(`/api/quiz/${category}`);
     const data = await res.json();
