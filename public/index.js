@@ -108,10 +108,12 @@ nextBtn.addEventListener("click", async () => {
     const data = await res.json();
 
     if (data.correct) {
+      alert("Rätt! + 100 poäng");
       score += 100;
       console.log(score);
     } else {
-      score -= 20;
+      alert("Fel! - 30 poäng");
+      score -= 30;
       console.log(score);
     }
 
