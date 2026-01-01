@@ -24,8 +24,11 @@ startBtn.addEventListener("click", async () => {
     questions = await fetchQuestions(selectedCategory);
     currentIndex = 0;
     score = 0;
+    console.log("Questions:", questions); //Tillfällig
+    console.log("Current index:", currentIndex); // Tillfällig
     showQuestion();
   } catch (error) {
+    console.error("Fel vid hämtning av frågor:", error);
     alert("Kunde inte hämta frågor");
   }
 });
