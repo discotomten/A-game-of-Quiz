@@ -10,12 +10,26 @@ const questionDiv = document.getElementById("question");
 const nextBtn = document.getElementById("nextBtn");
 const optionsDiv = document.getElementById("options");
 const backBtn = document.getElementById("backBtn");
+const categories = ["countries", "animals"];
+let questions = [];
+let selectedCategory = "countries";
+let currentIndex = 0;
 //Startar quizet
 startBtn.addEventListener("click", async () => {
   selectedCategory = categorySelect.value;
   startMenu.classList.add("hide");
   quizScreen.classList.add("show");
 
+async function fetchQuestions(category) {
+  if (category === "mixed") {
+    const results = await Promise.all(
+      categories.map(async (cate) => {
+        const res = await fetch(`/api/quiz/${cate}`);
+        const data = await res.json();
+        return data.map((q) => ({ ...q, category: cate })); // .map skapar en ny array genom att köra en given funktion på varje element i en befintlig array och returnera resultatet.
+      })
+    );
+    return shuffle(results.flat()); // .flat plattar ut en kapslad array genom att sammanfoga dess underarrayer till en ny array, orginalet lämnas orörd
 function showQuestion() {
   const q = questions[currentIndex];
   questionDiv.textContent = q.question;
