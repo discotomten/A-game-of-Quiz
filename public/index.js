@@ -10,6 +10,12 @@ const questionDiv = document.getElementById("question");
 const nextBtn = document.getElementById("nextBtn");
 const optionsDiv = document.getElementById("options");
 const backBtn = document.getElementById("backBtn");
+//Startar quizet
+startBtn.addEventListener("click", async () => {
+  selectedCategory = categorySelect.value;
+  startMenu.classList.add("hide");
+  quizScreen.classList.add("show");
+
 function showQuestion() {
   const q = questions[currentIndex];
   questionDiv.textContent = q.question;
