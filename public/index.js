@@ -103,6 +103,14 @@ nextBtn.addEventListener("click", async () => {
     if (currentIndex < questions.length) showQuestion();
     else {
       alert(`Du fick totalt ${score} poäng, bra jobbat!`);
+      document.getElementById("restartBtn").addEventListener("click", () => {
+        window.location.reload();
+      });
+    }
+  } catch (error) {
+    console.error("Fel vid POST");
+    alert("Kunde inte skicka svaret.");
+  }
 });
 //En riktig shuffle med Fisher-Yates vad det nu betyder
 function shuffle(array) {
