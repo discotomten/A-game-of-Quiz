@@ -20,6 +20,15 @@ startBtn.addEventListener("click", async () => {
   startMenu.classList.add("hide");
   quizScreen.classList.add("show");
 
+  try {
+    questions = await fetchQuestions(selectedCategory);
+    currentIndex = 0;
+    score = 0;
+    showQuestion();
+  } catch (error) {
+    alert("Kunde inte hämta frågor");
+  }
+});
 async function fetchQuestions(category) {
   if (category === "mixed") {
     const results = await Promise.all(
