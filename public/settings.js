@@ -11,6 +11,7 @@ export function saveTheme() {
       localStorage.setItem("theme", JSON.stringify(theme));
     });
   });
+
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme) {
     setTheme(JSON.parse(savedTheme));
