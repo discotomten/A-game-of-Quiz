@@ -10,9 +10,11 @@ const questionDiv = document.getElementById("question");
 const nextBtn = document.getElementById("nextBtn");
 const optionsDiv = document.getElementById("options");
 const backBtn = document.getElementById("backBtn");
+
 const categories = ["countries", "animals"];
 let questions = [];
 let selectedCategory = "countries";
+let score = 0;
 let currentIndex = 0;
 //Startar quizet
 startBtn.addEventListener("click", async () => {
@@ -88,6 +90,15 @@ nextBtn.addEventListener("click", async () => {
     });
 
     const data = await res.json();
+
+    if (data.correct) {
+      score += 100;
+      console.log(score);
+    } else {
+      score -= 20;
+      console.log(score);
+    }
+
 });
 //En riktig shuffle med Fisher-Yates vad det nu betyder
 function shuffle(array) {
