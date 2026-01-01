@@ -99,6 +99,10 @@ nextBtn.addEventListener("click", async () => {
       console.log(score);
     }
 
+    currentIndex++;
+    if (currentIndex < questions.length) showQuestion();
+    else {
+      alert(`Du fick totalt ${score} poäng, bra jobbat!`);
 });
 //En riktig shuffle med Fisher-Yates vad det nu betyder
 function shuffle(array) {
