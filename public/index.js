@@ -75,6 +75,19 @@ nextBtn.addEventListener("click", async () => {
     alert("Välj ett svar");
     return;
   }
+  try {
+    const currentQuestion = questions[currentIndex];
+
+    const res = await fetch(`/api/quiz/${currentQuestion.category}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        questionId: currentQuestion.id,
+        answer: selected.value,
+      }),
+    });
+
+    const data = await res.json();
 });
 //En riktig shuffle med Fisher-Yates vad det nu betyder
 function shuffle(array) {
