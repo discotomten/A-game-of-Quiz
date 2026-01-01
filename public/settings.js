@@ -8,6 +8,11 @@ export function saveTheme() {
     btn.addEventListener("click", () => {
       const theme = JSON.parse(btn.dataset.theme);
       setTheme(theme);
+      localStorage.setItem("theme", JSON.stringify(theme));
     });
   });
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) {
+    setTheme(JSON.parse(savedTheme));
+  }
 }

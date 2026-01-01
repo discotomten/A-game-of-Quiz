@@ -17,6 +17,11 @@ let questions = [];
 let selectedCategory = "countries";
 let score = 0;
 let currentIndex = 0;
+
+window.addEventListener("DOMContentLoaded", () => {
+  saveTheme();
+});
+
 //Settings dyker upp
 settingsBtn.addEventListener("click", () => {
   startMenu.classList.add("hide");
