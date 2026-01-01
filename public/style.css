@@ -110,3 +110,17 @@ inset 1px 1px 0 #ccccaa;
     transform: scale(1);
     pointer-events: auto;
 }
+.settingScreen{
+    position: absolute;
+    display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    margin: auto;
+    width: 500px;
+    background: var(--menuBg);
+    border-radius: 15px 15px;
+    row-gap: 3rem;
+    font-size: 20px;

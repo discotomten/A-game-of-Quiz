@@ -1,4 +1,5 @@
 "use strict";
+import { saveTheme } from "./settings.js";
 
 const startMenu = document.getElementById("startMenu");
 const categorySelect = document.getElementById("categorySelect");
