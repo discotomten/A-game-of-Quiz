@@ -30,6 +30,25 @@
     flex-direction: column;
     row-gap: 1rem;
 }
+button{
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 3px 3px;
+    color: var(--text);
+    background: var(--menuBg);
+}
+button:active{
+    box-shadow: 
+    inset -1px -1px 0 #000000,
+    inset 1px 1px 0 #000000;
+}
+button:hover{
+box-shadow: 
+inset -1px -1px 0 #ccccaa,
+inset 1px 1px 0 #ccccaa;
+}
 .quizScreen{
     display: none;
     display: flex;
