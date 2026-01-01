@@ -30,6 +30,13 @@ async function fetchQuestions(category) {
       })
     );
     return shuffle(results.flat()); // .flat plattar ut en kapslad array genom att sammanfoga dess underarrayer till en ny array, orginalet lämnas orörd
+  } else {
+    const res = await fetch(`/api/quiz/${category}`);
+    const data = await res.json();
+    return shuffle(data.map((q) => ({ ...q, category })));
+  }
+}
+
 function showQuestion() {
   const q = questions[currentIndex];
   questionDiv.textContent = q.question;
