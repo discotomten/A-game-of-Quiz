@@ -33,6 +33,16 @@ app.post("/api/register", async (req, res) => {
   if (existingUser) {
     return res.status(409).send("User already exists"); // 409 = Conflict
   }
+  const hashedPassword = await simpleHash(password);
+  const newUser = {
+    id: Date.now(),
+    username,
+    email,
+    hashedPassword,
+  };
+  users.push(newUser);
+  await saveUsers(users);
+  res.status(201).json({ message: "User created successfully" });
 });
 //category är en platshållare som matchar vad som helst i den positionen t.ex. animals
 app.get("/api/quiz/:category", (req, res) => {
