@@ -3,6 +3,8 @@ import express from "express";
 import questions from "./server/data/questions.js";
 import path from "path"; // path är ett inbyggt node-paket, används för att bygga paths säkert
 import { fileURLToPath } from "url";
+import { getUsers, saveUsers } from "./server/userhandler.js";
+import { simpleHash, isValidEmail } from "./server/formats.js";
 
 const port = 80;
 
@@ -13,6 +15,15 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
+app.post("/api/register", async (req, res) => {
+  //Hämtar data från body och bryter ner det till individuella delar
+  const { username, email, password } = req.body;
+
+  // Check för att se om något fällt är tomt
+  if ([username, email, password].some((field) => field?.trim() === "")) {
+    return res.status(400).send("All fields are required"); // 400 = Bad request
+  }
+});
 //category är en platshållare som matchar vad som helst i den positionen t.ex. animals
 app.get("/api/quiz/:category", (req, res) => {
   const { category } = req.params;
