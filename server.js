@@ -30,6 +30,9 @@ app.post("/api/register", async (req, res) => {
   const existingUser = users.find(
     (u) => u.username === username || u.email === email
   );
+  if (existingUser) {
+    return res.status(409).send("User already exists"); // 409 = Conflict
+  }
 });
 //category är en platshållare som matchar vad som helst i den positionen t.ex. animals
 app.get("/api/quiz/:category", (req, res) => {
