@@ -23,6 +23,13 @@ app.post("/api/register", async (req, res) => {
   if ([username, email, password].some((field) => field?.trim() === "")) {
     return res.status(400).send("All fields are required"); // 400 = Bad request
   }
+  if (!isValidEmail(email)) {
+    return res.status(400).send("Invalid email format");
+  }
+  const users = await getUsers();
+  const existingUser = users.find(
+    (u) => u.username === username || u.email === email
+  );
 });
 //category är en platshållare som matchar vad som helst i den positionen t.ex. animals
 app.get("/api/quiz/:category", (req, res) => {
