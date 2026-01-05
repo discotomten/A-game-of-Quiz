@@ -48,6 +48,9 @@ app.post("/api/register", async (req, res) => {
 app.get("/api/quiz/:category", (req, res) => {
   const { category } = req.params;
   const getQuestions = questions[category];
+  if (!getQuestions) {
+    return res.status(404).send("Category not found");
+  }
   res.json(getQuestions);
 });
 
@@ -55,9 +58,13 @@ app.post("/api/quiz/:category", (req, res) => {
   const { category } = req.params;
   const { questionId, answer } = req.body;
   const getQuestions = questions[category];
-
+  if (!getQuestions) {
+    return res.status(404).send("Category not found");
+  }
   const question = getQuestions.find((q) => q.id === Number(questionId));
-
+  if (!question) {
+    return res.status(404).send("Question not found");
+  }
   res.json({
     correct: answer === question.correct,
   });
