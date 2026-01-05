@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1767646917196,
+    "username": "ducky",
+    "email": "duckzors@outlook.com",
+    "hashedPassword": "255353b6"
+  },
+  {
+    "id": 1767646982186,
+    "username": "Milton",
+    "email": "malteezer@outlook.com",
+    "hashedPassword": "580db7fa"
+  },
+  {
+    "id": 1767647371024,
+    "username": "Mcgyver",
+    "email": "destroyed@outlook.com",
+    "hashedPassword": "580db7fa"
+  },
+  {
+    "id": 1767649593253,
+    "username": "Leif",
+    "email": "brunbjö@rnoutlook.com",
+    "hashedPassword": "753763f4"
+  }
+]
