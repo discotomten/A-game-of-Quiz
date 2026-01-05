@@ -149,4 +149,18 @@ inset 1px 1px 0 #ccccaa;
     transform: scale(1);
     pointer-events: auto;
 }
+@media(max-width:800px){
+    body{
+        font-size: 10px;
+        display: block;
+    }
+    header{
+        font-size: 10px;
+
+    }
+    .quizScreen{
+        row-gap: 3rem;
+    }
+    
+}
 
