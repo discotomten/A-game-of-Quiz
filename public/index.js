@@ -19,7 +19,7 @@ let selectedCategory = "countries";
 let score = 0;
 let currentIndex = 0;
 
-window.addEventListener("DOMContentLoaded", () => {
+settingsBtn.addEventListener("click", () => {
   saveTheme();
 });
 
@@ -60,6 +60,7 @@ async function fetchQuestions(category) {
         return data.map((q) => ({ ...q, category: cate })); // .map skapar en ny array genom att köra en given funktion på varje element i en befintlig array och returnera resultatet.
       })
     );
+
     return shuffle(results.flat()).slice(0, 10); // .flat plattar ut en kapslad array genom att sammanfoga dess underarrayer till en ny array, orginalet lämnas orörd
   } else {
     const res = await fetch(`/api/quiz/${category}`);
