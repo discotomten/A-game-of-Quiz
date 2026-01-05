@@ -11,6 +11,7 @@ const questionDiv = document.getElementById("question");
 const nextBtn = document.getElementById("nextBtn");
 const optionsDiv = document.getElementById("options");
 const backBtn = document.getElementById("backBtn");
+const restartBtn = document.getElementById("restartBtn");
 
 const categories = ["geography", "animals", "music", "sport"];
 let questions = [];
@@ -121,6 +122,7 @@ nextBtn.addEventListener("click", async () => {
     if (currentIndex < questions.length) showQuestion();
     else {
       alert(`Du fick totalt ${score} poäng, bra jobbat!`);
+      restartBtn.classList.add("show");
       document.getElementById("restartBtn").addEventListener("click", () => {
         window.location.reload();
       });

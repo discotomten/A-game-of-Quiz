@@ -87,6 +87,14 @@ box-shadow:
 inset -1px -1px 0 #ccccaa,
 inset 1px 1px 0 #ccccaa;
 }
+.restartBtn{
+    display: none;
+    
+}
+.restartBtn.show{
+    display: block;
+    pointer-events: auto;
+}
 .quizScreen{
     display: none;
     display: flex;
