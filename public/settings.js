@@ -3,6 +3,7 @@ export function setTheme(theme) {
   document.documentElement.style.setProperty("--bg", theme.bg);
   document.documentElement.style.setProperty("--text", theme.text);
 }
+//Lyssnar på knapptryck och sparar temat lokalt, spökar lite om man ändrar temat i browsern atm
 export function saveTheme() {
   const themeColor = document.querySelectorAll(".colorBtn");
   themeColor.forEach((btn) => {

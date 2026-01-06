@@ -15,6 +15,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
+//TODO Försök hinna koppla till frontend
 app.post("/api/register", async (req, res) => {
   //Hämtar data från body och bryter ner det till individuella delar
   const { username, email, password } = req.body;
