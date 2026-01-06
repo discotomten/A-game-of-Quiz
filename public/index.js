@@ -19,44 +19,47 @@ let questions = [];
 let selectedCategory = "countries";
 let score = 0;
 let currentIndex = 0;
-
-settingsBtn.addEventListener("click", () => {
-  saveTheme();
-});
-
 if (returnHome) {
   returnHome.addEventListener("click", () => {
     window.location.href = "/";
   });
 }
 //Settings dyker upp
-settingsBtn.addEventListener("click", () => {
-  startMenu.classList.add("hide");
-  settingScreen.classList.add("show");
-});
+if (settingsBtn) {
+  settingsBtn.addEventListener("click", () => {
+    startMenu.classList.add("hide");
+    settingScreen.classList.add("show");
+    saveTheme();
+  });
+}
 //Tillbaka till startmeny
-backBtn.addEventListener("click", () => {
-  settingScreen.classList.remove("show");
-  startMenu.classList.remove("hide");
-});
+if (backBtn) {
+  backBtn.addEventListener("click", () => {
+    settingScreen.classList.remove("show");
+    startMenu.classList.remove("hide");
+  });
+}
 //Startar quizet
-startBtn.addEventListener("click", async () => {
-  selectedCategory = categorySelect.value;
-  startMenu.classList.add("hide");
-  quizScreen.classList.add("show");
+if (startBtn) {
+  startBtn.addEventListener("click", async () => {
+    selectedCategory = categorySelect.value;
+    startMenu.classList.add("hide");
+    quizScreen.classList.add("show");
 
-  try {
-    questions = await fetchQuestions(selectedCategory);
-    currentIndex = 0;
-    score = 0;
-    console.log("Questions:", questions); //Tillfällig
-    console.log("Current index:", currentIndex); // Tillfällig
-    showQuestion();
-  } catch (error) {
-    console.error("Fel vid hämtning av frågor:", error);
-    alert("Kunde inte hämta frågor");
-  }
-});
+    try {
+      questions = await fetchQuestions(selectedCategory);
+      currentIndex = 0;
+      score = 0;
+      console.log("Questions:", questions); //Tillfällig
+      console.log("Current index:", currentIndex); // Tillfällig
+      showQuestion();
+    } catch (error) {
+      console.error("Fel vid hämtning av frågor:", error);
+      alert("Kunde inte hämta frågor");
+    }
+  });
+}
+//Hämtar frågor från kategorier och blandar dom innan dom visas oavsett om man väljer mixat eller vanlig quiz
 async function fetchQuestions(category) {
   if (category === "mixed") {
     const results = await Promise.all(
@@ -95,50 +98,52 @@ function showQuestion() {
     optionsDiv.appendChild(document.createElement("br"));
   }
 }
-nextBtn.addEventListener("click", async () => {
-  const selected = document.querySelector(`input[name="answer"]:checked`);
-  if (!selected) {
-    alert("Välj ett svar");
-    return;
-  }
-  try {
-    const currentQuestion = questions[currentIndex];
-
-    const res = await fetch(`/api/quiz/${currentQuestion.category}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        questionId: currentQuestion.id,
-        answer: selected.value,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (data.correct) {
-      alert("Rätt! + 100 poäng");
-      score += 100;
-      console.log(score);
-    } else {
-      alert("Fel! - 30 poäng");
-      score -= 30;
-      console.log(score);
+if (nextBtn) {
+  nextBtn.addEventListener("click", async () => {
+    const selected = document.querySelector(`input[name="answer"]:checked`);
+    if (!selected) {
+      alert("Välj ett svar");
+      return;
     }
+    try {
+      const currentQuestion = questions[currentIndex];
 
-    currentIndex++;
-    if (currentIndex < questions.length) showQuestion();
-    else {
-      alert(`Du fick totalt ${score} poäng, bra jobbat!`);
-      restartBtn.classList.add("show");
-      document.getElementById("restartBtn").addEventListener("click", () => {
-        window.location.reload();
+      const res = await fetch(`/api/quiz/${currentQuestion.category}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          questionId: currentQuestion.id,
+          answer: selected.value,
+        }),
       });
+
+      const data = await res.json();
+
+      if (data.correct) {
+        alert("Rätt! + 100 poäng");
+        score += 100;
+        console.log(score);
+      } else {
+        alert("Fel! - 30 poäng");
+        score -= 30;
+        console.log(score);
+      }
+
+      currentIndex++;
+      if (currentIndex < questions.length) showQuestion();
+      else {
+        alert(`Du fick totalt ${score} poäng, bra jobbat!`);
+        restartBtn.classList.add("show");
+        document.getElementById("restartBtn").addEventListener("click", () => {
+          window.location.reload();
+        });
+      }
+    } catch (error) {
+      console.error("Fel vid POST");
+      alert("Kunde inte skicka svaret.");
     }
-  } catch (error) {
-    console.error("Fel vid POST");
-    alert("Kunde inte skicka svaret.");
-  }
-});
+  });
+}
 //En riktig shuffle med Fisher-Yates vad det nu betyder
 function shuffle(array) {
   const copy = [...array];
