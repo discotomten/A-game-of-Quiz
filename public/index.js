@@ -12,6 +12,7 @@ const nextBtn = document.getElementById("nextBtn");
 const optionsDiv = document.getElementById("options");
 const backBtn = document.getElementById("backBtn");
 const restartBtn = document.getElementById("restartBtn");
+const returnHome = document.getElementById("returnHome");
 
 const categories = ["geography", "animals", "music", "sport"];
 let questions = [];
@@ -23,6 +24,11 @@ settingsBtn.addEventListener("click", () => {
   saveTheme();
 });
 
+if (returnHome) {
+  returnHome.addEventListener("click", () => {
+    window.location.href = "/";
+  });
+}
 //Settings dyker upp
 settingsBtn.addEventListener("click", () => {
   startMenu.classList.add("hide");
