@@ -1,7 +1,7 @@
 "use strict";
 import express from "express";
 import questions from "./server/data/questions.js";
-import path from "path"; // path är ett inbyggt node-paket, används för att bygga paths säkert
+import path from "path";
 import { fileURLToPath } from "url";
 import { getUsers, saveUsers } from "./server/userhandler.js";
 import { simpleHash, isValidEmail } from "./server/formats.js";
