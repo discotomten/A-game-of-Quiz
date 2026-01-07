@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer type="module" src="index.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Create User</title>
+  </head>
+  <header>
+    <h1>Skapa ny användare</h1>
+  </header>
+  <body>
+    <main class="createUserMenu">
+      <form>
+        <div class="inputRow">
+          <label for="username">Användarnamn:</label>
+          <input type="text" id="username" name="username" />
+        </div>
+        <div class="inputRow">
+          <label for="email">E-post:</label>
+          <input type="text" id="email" name="username" />
+        </div>
+        <div class="inputRow">
+          <label for="password">Lösenord:</label>
+          <input type="text" id="password" name="password" />
+        </div>
+      </form>
+      <div class="userHolder">
+        <button id="returnHome" class="return">Tillbaka</button>
+        <button id="createUser">Skapa användare</button>
+      </div>
+    </main>
+  </body>
+  <footer></footer>
+</html>
