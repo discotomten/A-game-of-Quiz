@@ -110,3 +110,45 @@ body{
     flex: 1;
 }
 
+    @media(max-width:800px){
+    html,body{
+        font-size: 10px;
+        background-repeat: no-repeat ;
+        overflow-x: hidden;
+    }
+    body{
+        height: 100vh;
+    }
+    header{
+        font-size: 10px;
+    }
+    .contentContainer{
+        flex-direction: column;
+        max-width: 200px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 1rem;
+        height: auto;
+    }
+    #login-form{
+        margin: auto; 
+    }
+    #login-error-holder{
+        
+        height: auto;
+    }
+    #login-error-msg{
+        font-size: 10px;
+    }
+    .userHolder{
+        margin:auto;
+    }
+    .inputRow label{
+    width: 70px;
+}
+.inputRow input{
+    width: 100px;
+    flex: 1;
+}
+   
+}
