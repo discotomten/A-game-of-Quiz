@@ -13,3 +13,7 @@ export function simpleHash(str) {
   }
   return hash.toString(16);
 }
+export async function compareHash(password, hash) {
+  const hashed = await simpleHash(password);
+  return hashed === hash;
+}

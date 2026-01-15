@@ -1,0 +1,42 @@
+{
+  "animals": [
+    {
+      "id": 1,
+      "question": "Hur många ben har en spindel?",
+      "options": {
+        "1": "6",
+        "2": "10",
+        "X": "8"
+      },
+      "correct": "X"
+    }
+  ],
+  "music": [
+    {
+      "id": 1,
+      "question": "Vilken artist har vunnit flest Grammy Awards genom tiderna?",
+      "options": {
+        "1": "Beyoncé",
+        "2": "Michael Jackson",
+        "X": "Mariah Carey"
+      },
+      "correct": "1"
+    }
+  ],
+  "geography": [
+    {}
+  ],
+  "sport": [
+    
+    {
+      "id": 1,
+      "question": "Vilken färg har ett fotbollsmål?",
+      "options": {
+        "1": "Gul",
+        "2": "Vit",
+        "X": "Röd"
+      },
+      "correct": "2"
+    }
+  ]
+}
