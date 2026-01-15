@@ -1,10 +1,15 @@
 "use strict";
 import express from "express";
-import questions from "./server/data/questions.js";
+//import questions from "./server/data/questions.json";
 import path from "path";
 import { fileURLToPath } from "url";
-import { getUsers, saveUsers } from "./server/userhandler.js";
-import { simpleHash, isValidEmail } from "./server/formats.js";
+import {
+  getUsers,
+  saveUsers,
+  readQuestion,
+  saveQuestion,
+} from "./server/userhandler.js";
+import { simpleHash, isValidEmail, compareHash } from "./server/formats.js";
 
 const port = 80;
 
@@ -15,9 +20,24 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-//TODO Försök hinna koppla till frontend
+app.post("/api/login", async (req, res) => {
+  const { username, password } = req.body;
+  const users = await getUsers();
+  const existingUser = users.find((u) => u.username === username);
+  if (!existingUser) {
+    return res.status(401).send("Fel användarnamn eller lösenord"); // 401 = Unauthorized
+  }
+  //TODO MÅSTE LÖSA HASHED PASSWORD
+  // const isValidPw = await compareHash(password, users.hashedPassword);
+  // console.log(password);
+  // console.log(users.hashedPassword);
+  // if (!isValidPw) {
+  //   return res.status(401).send("Fel användarnamn eller lösenörd");
+  // }
+  res.status(200).json("Inloggad");
+});
+
 app.post("/api/register", async (req, res) => {
-  //Hämtar data från body och bryter ner det till individuella delar
   const { username, email, password } = req.body;
 
   // Check för att se om något fällt är tomt
@@ -45,6 +65,7 @@ app.post("/api/register", async (req, res) => {
   await saveUsers(users);
   res.status(201).json({ message: "User created successfully" });
 });
+
 //category är en platshållare som matchar vad som helst i den positionen t.ex. animals
 app.get("/api/quiz/:category", (req, res) => {
   const { category } = req.params;
