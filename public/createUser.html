@@ -4,15 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script defer type="module" src="index.js"></script>
-    <link rel="stylesheet" href="style.css" />
-    <title>Create User</title>
+    <link rel="stylesheet" href="style2.css" />
+    <title>Skapa användare</title>
   </head>
-  <header>
-    <h1>Skapa ny användare</h1>
-  </header>
   <body>
-    <main class="createUserMenu">
-      <form>
+    <main class="contentContainer">
+      <h1>Skapa ny användare</h1>
+      <form id="login-form">
         <div class="inputRow">
           <label for="username">Användarnamn:</label>
           <input type="text" id="username" name="username" />
@@ -27,8 +25,8 @@
         </div>
       </form>
       <div class="userHolder">
-        <button id="returnHome" class="return">Tillbaka</button>
-        <button id="createUser">Skapa användare</button>
+        <button id="createUserBack" class="formBtn">Tillbaka</button>
+        <button id="createUser" class="formBtn">Skapa användare</button>
       </div>
     </main>
   </body>

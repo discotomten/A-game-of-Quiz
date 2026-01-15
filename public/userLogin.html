@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer type="module" src="index.js"></script>
+    <link rel="stylesheet" href="style2.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <main class="contentContainer">
+      <h1>Login</h1>
+
+      <div id="login-error-holder">
+        <p id="login-error-msg">
+          Invalid username
+          <span id="error-msg-second-line"> and/or password</span>
+        </p>
+      </div>
+
+      <form id="login-form">
+        <input
+          type="text"
+          name="username"
+          id="username-field"
+          class="login-form-field"
+          placeholder="Username"
+        />
+        <input
+          type="text"
+          name="password"
+          id="password-field"
+          class="login-form-field"
+          placeholder="Password"
+        />
+        <input type="submit" value="Login" id="login-form-submit" />
+      </form>
+    </main>
+  </body>
+</html>
