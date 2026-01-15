@@ -83,19 +83,33 @@ app.get("/api/quiz/:category", async (req, res) => {
   }
 });
 
+//Rättar svaret som angivs true or false
+app.post("/api/quiz/:category", async (req, res) => {
   const { category } = req.params;
   const { questionId, answer } = req.body;
-  const getQuestions = questions[category];
-  if (!getQuestions) {
-    return res.status(404).send("Category not found");
+  if (!questionId || !answer) {
+    return res.status(404).send("Invalid data");
   }
-  const question = getQuestions.find((q) => q.id === Number(questionId));
-  if (!question) {
-    return res.status(404).send("Question not found");
+  try {
+    const questions = await readQuestion();
+    if (!questions[category]) {
+      return res.status(404).json("Category not found");
+    }
+    const question = questions[category].find(
+      (q) => q.id === Number(questionId)
+    );
+    if (!question) {
+      return res.status(404).send("Question not found");
+    }
+    res.json({
+      correct: answer === question.correct,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status("Could not validate answer");
   }
-  res.json({
-    correct: answer === question.correct,
-  });
+});
+  }
 });
 
 app.use((req, res) => {
