@@ -67,16 +67,22 @@ app.post("/api/register", async (req, res) => {
 });
 
 //category är en platshållare som matchar vad som helst i den positionen t.ex. animals
-app.get("/api/quiz/:category", (req, res) => {
+app.get("/api/quiz/:category", async (req, res) => {
   const { category } = req.params;
-  const getQuestions = questions[category];
-  if (!getQuestions) {
-    return res.status(404).send("Category not found");
+  try {
+    const questions = await readQuestion();
+    console.log("QUESTIONS", questions);
+    console.log("CATEGORY", category);
+    if (!questions) {
+      return res.status(404).send("Category not found");
+    }
+    res.json(questions[category]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json("Could not read questions");
   }
-  res.json(getQuestions);
 });
 
-app.post("/api/quiz/:category", (req, res) => {
   const { category } = req.params;
   const { questionId, answer } = req.body;
   const getQuestions = questions[category];
