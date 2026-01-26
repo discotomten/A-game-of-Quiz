@@ -24,12 +24,6 @@
     "hashedPassword": "753763f4"
   },
   {
-    "id": 1767815506515,
-    "username": "linus",
-    "email": "linus@test.com",
-    "hashedPassword": "2ca0033"
-  },
-  {
     "id": 1767819589669,
     "username": "adam5",
     "email": "adam98@outlook.com",
@@ -40,5 +34,11 @@
     "username": "kajsa",
     "email": "kajsa@test.se",
     "hashedPassword": "2ca0033"
+  },
+  {
+    "id": 1768857714569,
+    "username": "linus",
+    "email": "linkaan@outlook.com",
+    "hashedPassword": "$2b$10$SQTG26HCubDdb62eHwwidefKTQnA6BctWqRZVlZKTM5cCCps2IbdW"
   }
 ]

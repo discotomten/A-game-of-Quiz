@@ -16,11 +16,12 @@ const returnHome = document.getElementById("returnHome");
 const createAccountBtn = document.getElementById("createAccount");
 const createUser = document.getElementById("createUser");
 const navigateLoginPage = document.getElementById("login");
-const categories = ["geography", "animals", "music", "sport"];
 const loginError = document.getElementById("login-error-msg");
 const loginBtn = document.getElementById("login-form-submit");
 const loginForm = document.getElementById("login-form");
 const loginBackBtn = document.getElementById("createUserBack");
+
+const categories = ["geography", "animals", "music", "sport"];
 let questions = [];
 let selectedCategory = "countries";
 let score = 0;
@@ -58,22 +59,31 @@ if (backBtn) {
     });
   }
 }
-// if (loginBtn) {
-//   loginBtn.addEventListener("click", () => {
-//     await fetch("/api/login", {
-//       method: "POST",
-//       header: {
-//         "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       username,
-//       password,
-//     }),
-//   });
-// }
-// }else{
-//   loginError.style.opacity = 1
-// }
+if (loginBtn) {
+  loginBtn.addEventListener("click", async (e) => {
+    e.preventDefault(); // Viktigt för att inte formuläret ska skickas och ladda om sidan
+    const username = document.getElementById("username-field").value;
+    const password = document.getElementById("password-field").value;
+    loginError.style.opacity = 0;
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      //Lyckad login
+      alert("Du är nu inloggad och dina poäng sparas på kontot");
+      window.location = "/";
+    } catch (err) {
+      loginError.style.opacity = 1;
+    }
+  });
+}
 
 if (createAccountBtn) {
   createAccountBtn.addEventListener("click", () => {
@@ -140,7 +150,7 @@ async function fetchQuestions(category) {
         const res = await fetch(`/api/quiz/${cate}`);
         const data = await res.json();
         return data.map((q) => ({ ...q, category: cate })); // .map skapar en ny array genom att köra en given funktion på varje element i en befintlig array och returnera resultatet.
-      })
+      }),
     );
 
     return shuffle(results.flat()).slice(0, 10); // .flat plattar ut en kapslad array genom att sammanfoga dess underarrayer till en ny array, orginalet lämnas orörd

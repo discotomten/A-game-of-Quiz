@@ -9,7 +9,8 @@ import {
   readQuestion,
   saveQuestion,
 } from "./server/userhandler.js";
-import { simpleHash, isValidEmail, compareHash } from "./server/formats.js";
+import { isValidEmail } from "./server/formats.js";
+import bcrypt from "bcrypt";
 
 const port = 80;
 
@@ -21,20 +22,30 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.post("/api/login", async (req, res) => {
-  const { username, password } = req.body;
-  const users = await getUsers();
-  const existingUser = users.find((u) => u.username === username);
-  if (!existingUser) {
-    return res.status(401).send("Fel användarnamn eller lösenord"); // 401 = Unauthorized
+  try {
+    const { username, password } = req.body;
+
+    const users = await getUsers();
+
+    const existingUser = users.find((u) => u.username === username);
+
+    if (!existingUser) {
+      return res.status(401).send("Fel användarnamn eller lösenord"); // 401 = Unauthorized
+    }
+
+    const isValidPw = await bcrypt.compare(
+      password,
+      existingUser.hashedPassword,
+    );
+
+    if (!isValidPw) {
+      return res.status(401).send("Fel användarnamn eller lösenörd");
+    }
+    res.status(200).json("Inloggad");
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).send("Internal Server Error");
   }
-  //TODO MÅSTE LÖSA HASHED PASSWORD
-  // const isValidPw = await compareHash(password, users.hashedPassword);
-  // console.log(password);
-  // console.log(users.hashedPassword);
-  // if (!isValidPw) {
-  //   return res.status(401).send("Fel användarnamn eller lösenörd");
-  // }
-  res.status(200).json("Inloggad");
 });
 
 app.post("/api/register", async (req, res) => {
@@ -49,12 +60,12 @@ app.post("/api/register", async (req, res) => {
   }
   const users = await getUsers();
   const existingUser = users.find(
-    (u) => u.username === username || u.email === email
+    (u) => u.username === username || u.email === email,
   );
   if (existingUser) {
     return res.status(409).send("User already exists"); // 409 = Conflict
   }
-  const hashedPassword = await simpleHash(password);
+  const hashedPassword = await bcrypt.hash(password, 10);
   const newUser = {
     id: Date.now(),
     username,
@@ -96,7 +107,7 @@ app.post("/api/quiz/:category", async (req, res) => {
       return res.status(404).json("Category not found");
     }
     const question = questions[category].find(
-      (q) => q.id === Number(questionId)
+      (q) => q.id === Number(questionId),
     );
     if (!question) {
       return res.status(404).send("Question not found");
@@ -109,6 +120,32 @@ app.post("/api/quiz/:category", async (req, res) => {
     res.status("Could not validate answer");
   }
 });
+
+//Lägger till frågor beroende på kategori
+app.post("/api/quiz/:category/add", async (req, res) => {
+  const { category } = req.params;
+  const { question, options, correct } = req.body;
+  if (!question || !options || !correct) {
+    return res.status(400).json({ error: "Invalid data" });
+  }
+  try {
+    const questions = await readQuestion();
+
+    if (!questions[category]) {
+      return res.status(404).json({ error: "Category not found" });
+    }
+    const newId =
+      questions[category].length > 0
+        ? questions[category][questions[category].length - 1].id + 1
+        : 1;
+
+    const newQuestion = { id: newId, question, options, correct };
+    questions[category].push(newQuestion);
+    await saveQuestion(questions);
+    res.status(201).json(newQuestion);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(" Could not save question");
   }
 });
 
