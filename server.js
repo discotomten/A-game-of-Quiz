@@ -21,6 +21,9 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
+app.get((req, res) => {
+  res.sendFile(path.join(dirName, "public", "index.html"));
+});
 app.post("/api/login", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -142,7 +145,7 @@ app.post("/api/quiz//add", async (req, res) => {
   }
 });
 
-app.get("/", (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(dirName, "public", "404.html"));
 });
 app.listen(port, () => {
