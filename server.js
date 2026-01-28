@@ -150,14 +150,14 @@ app.listen(port, () => {
 });
 
 //Answer check for custom made questions
-export async function customQuestions(category, questionId, answer) {
-  const questions = await readQuestion();
-  if (!questions[category]) {
-    return { error: "Category not found" };
-  }
-  const question = questions[category].find((q) => q.id === Number(questionId));
-  if (!question) {
-    return { error: "Question not found" };
-  }
-  return { correct: answer === question.correct };
-}
+// export async function customQuestions(category, questionId, answer) {
+//   const questions = await readQuestion();
+//   if (!questions[category]) {
+//     return { error: "Category not found" };
+//   }
+//   const question = questions[category].find((q) => q.id === Number(questionId));
+//   if (!question) {
+//     return { error: "Question not found" };
+//   }
+//   return { correct: answer === question.correct };
+// }
