@@ -1,4 +1,4 @@
-const questions = {
+export const questions = {
   geography: [
     {
       id: 1,

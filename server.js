@@ -1,6 +1,6 @@
 "use strict";
 import express from "express";
-//import questions from "./server/data/questions.json";
+import { questions } from "./server/data/questions.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import {
@@ -78,37 +78,30 @@ app.post("/api/register", async (req, res) => {
 });
 
 //category är en platshållare som matchar vad som helst i den positionen t.ex. animals
-app.get("/api/quiz/:category", async (req, res) => {
+app.get("/api/quiz/:category", (req, res) => {
   const { category } = req.params;
-  try {
-    const questions = await readQuestion();
-    console.log("QUESTIONS", questions);
-    console.log("CATEGORY", category);
-    if (!questions) {
-      return res.status(404).send("Category not found");
-    }
-    res.json(questions[category]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json("Could not read questions");
+  const getQuestions = questions[category];
+
+  console.log("QUESTIONS", questions);
+  console.log("CATEGORY", category);
+  if (!getQuestions) {
+    return res.status(404).send("Category not found");
   }
+  res.json(getQuestions);
 });
 
 //Rättar svaret som angivs true or false
-app.post("/api/quiz/:category", async (req, res) => {
+app.post("/api/quiz/:category", (req, res) => {
   const { category } = req.params;
   const { questionId, answer } = req.body;
-  if (!questionId || !answer) {
-    return res.status(404).send("Invalid data");
+
+  const getQuestions = questions[category];
+
+  if (!getQuestions) {
+    return res.status(404).json("Category not found");
   }
   try {
-    const questions = await readQuestion();
-    if (!questions[category]) {
-      return res.status(404).json("Category not found");
-    }
-    const question = questions[category].find(
-      (q) => q.id === Number(questionId),
-    );
+    const question = getQuestions.find((q) => q.id === Number(questionId));
     if (!question) {
       return res.status(404).send("Question not found");
     }
@@ -122,7 +115,7 @@ app.post("/api/quiz/:category", async (req, res) => {
 });
 
 //Lägger till frågor beroende på kategori
-app.post("/api/quiz/:category/add", async (req, res) => {
+app.post("/api/quiz//add", async (req, res) => {
   const { category } = req.params;
   const { question, options, correct } = req.body;
   if (!question || !options || !correct) {
@@ -155,3 +148,16 @@ app.use((req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+//Answer check for custom made questions
+export async function customQuestions(category, questionId, answer) {
+  const questions = await readQuestion();
+  if (!questions[category]) {
+    return { error: "Category not found" };
+  }
+  const question = questions[category].find((q) => q.id === Number(questionId));
+  if (!question) {
+    return { error: "Question not found" };
+  }
+  return { correct: answer === question.correct };
+}
