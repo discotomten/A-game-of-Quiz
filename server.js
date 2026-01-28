@@ -142,8 +142,8 @@ app.post("/api/quiz//add", async (req, res) => {
   }
 });
 
-app.use((req, res) => {
-  res.status(404).sendFile(path.join(dirName, "public", "404.html"));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(dirName, "public", "404.html"));
 });
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
