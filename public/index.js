@@ -20,6 +20,90 @@ const loginError = document.getElementById("login-error-msg");
 const loginBtn = document.getElementById("login-form-submit");
 const loginForm = document.getElementById("login-form");
 const loginBackBtn = document.getElementById("createUserBack");
+const ownQuiz = document.getElementById("ownQuiz");
+const showOwnQuiz = document.getElementById("ownQuizScreen");
+
+let ownCurrentQuestion = 0;
+const ownQuestions = [];
+
+const questionCounter = document.getElementById("questionCounter");
+
+document.getElementById("addQuestion").addEventListener("click", () => {
+  const questionText = document.getElementById("questionText");
+  const a1 = document.getElementById("a1");
+  const a2 = document.getElementById("a2");
+  const a3 = document.getElementById("a3");
+
+  const correct = document.querySelector('input[name="correct"]:checked').value;
+
+  const newQuestion = {
+    question: questionText.value,
+    answers: [a1.value, a2.value, a3.value],
+    correct: Number(correct),
+  };
+  ownQuestions.push(newQuestion);
+  questionCounter.textContent = "Questions added: " + ownQuestions.length;
+  console.log(ownQuestions);
+  questionText.value = "";
+  a1.value = "";
+  a2.value = "";
+  a3.value = "";
+});
+
+function showOwnQuestion() {
+  const q = ownQuestions[ownCurrentQuestion];
+  document.getElementById("ownQuestion").textContent = q.question;
+
+  document.getElementById("answer1").textContent = q.answers[0];
+  document.getElementById("answer2").textContent = q.answers[1];
+  document.getElementById("answer3").textContent = q.answers[2];
+}
+
+document
+  .getElementById("answer1")
+  .addEventListener("click", () => checkAnswer(0));
+document
+  .getElementById("answer2")
+  .addEventListener("click", () => checkAnswer(1));
+document
+  .getElementById("answer3")
+  .addEventListener("click", () => checkAnswer(2));
+document
+  .getElementById("ownNextBtn")
+  .addEventListener("click", () => nextOwnQuestion());
+
+document.getElementById("startOwnQuiz").addEventListener("click", () => {
+  startMenu.classList.add("hide");
+  ownQuiz.classList.add("hide");
+  showOwnQuiz.classList.add("show");
+  showOwnQuestion();
+});
+
+window.checkAnswer = function (index) {
+  if (index === ownQuestions[ownCurrentQuestion].correct) {
+    alert("Rätt! + 100 poäng");
+    score += 100;
+  } else {
+    alert("Fel! - 30 poäng");
+    score -= 30;
+  }
+};
+
+function endQuiz() {
+  ownCurrentQuestion = 0;
+  score = 0;
+}
+
+window.nextOwnQuestion = function () {
+  ownCurrentQuestion++;
+  if (ownCurrentQuestion < ownQuestions.length) {
+    showOwnQuestion();
+  } else {
+    alert(`Bra jobbat du fick: ${score} poäng!`);
+    endQuiz();
+    window.location.reload();
+  }
+};
 
 const categories = ["geography", "animals", "music", "sport"];
 let questions = [];
@@ -77,7 +161,7 @@ if (loginBtn) {
       const data = await response.json();
 
       //Lyckad login
-      alert("Du är nu inloggad och dina poäng sparas på kontot");
+      alert("Du är nu inloggad som inte gör nånting alls just nu!");
       window.location = "/";
     } catch (err) {
       loginError.style.opacity = 1;
@@ -127,6 +211,7 @@ if (startBtn) {
   startBtn.addEventListener("click", async () => {
     selectedCategory = categorySelect.value;
     startMenu.classList.add("hide");
+    ownQuiz.classList.add("hide");
     quizScreen.classList.add("show");
 
     try {

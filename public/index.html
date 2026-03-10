@@ -9,11 +9,19 @@
   </head>
   <body class="body">
     <header>
+      <div class="userHolder">
+        <button id="createAccount">Skapa konto</button>
+        <button id="login">Logga in</button>
+        <button id="settingsBtn" class="settingsBtn">
+          Ändra bakgrundstema
+        </button>
+      </div>
       <h1>👑Quizmageddon👑</h1>
     </header>
     <main class="menuWrapper">
       <div id="startMenu" class="startMenu">
         <div id="categoryHolder" class="categoryHolder">
+          <h2>Prova ett färdigt Quiz</h2>
           <label for="categorySelect">Välj kategori:</label>
           <select id="categorySelect">
             <option value="geography">Geografi</option>
@@ -22,24 +30,55 @@
             <option value="music">Musik</option>
             <option value="mixed">Blandat</option>
           </select>
+          <div class="buttonHolder">
+            <button id="startBtn" class="startBtn">Starta Quiz</button>
+          </div>
         </div>
-        <div class="buttonHolder">
-          <button id="startBtn" class="startBtn">Start</button>
-          <button id="settingsBtn" class="settingsBtn">
-            Ändra bakgrundstema
-          </button>
-        </div>
-        <div class="userHolder">
-          <button id="createAccount">Skapa konto</button>
-          <button id="login">Logga in</button>
-        </div>
+      </div>
+      <div id="ownQuizScreen" class="ownQuizScreen">
+        <h2 id="ownQuestion"></h2>
+        <button class="opBtn" id="answer1"></button>
+        <button class="opBtn" id="answer2"></button>
+        <button class="opBtn" id="answer3"></button>
+        <button class="opBtn" id="ownNextBtn">Next</button>
       </div>
       <div id="quizScreen" class="quizScreen">
         <div id="question" class="questionText"></div>
         <div id="options"></div>
-        <button id="nextBtn">Nästa</button>
-        <button id="restartBtn" class="restartBtn">Spela igen!</button>
+        <div class="nextBtnholder">
+          <button id="nextBtn">Nästa</button>
+          <button id="restartBtn" class="restartBtn">Spela igen!</button>
+        </div>
       </div>
+      <div id="ownQuiz" class="ownQuiz">
+        <h2>Gör ditt eget Quiz</h2>
+        <p id="questionCounter"></p>
+        <label>
+          <textarea
+            id="questionText"
+            type="text"
+            placeholder="Skriv en fråga..."
+          ></textarea>
+        </label>
+        <div>
+          <p>Placera den blåa pricken på rätt svar</p>
+          <input type="radio" name="correct" value="0" />
+          <input id="a1" placeholder="Alternativ 1.." />
+        </div>
+        <div>
+          <input type="radio" name="correct" value="1" />
+          <input id="a2" placeholder="Alternativ 2." />
+        </div>
+        <div>
+          <input type="radio" name="correct" value="2" />
+          <input id="a3" placeholder="Alternativ 3.." />
+        </div>
+        <div class="buttonHolder">
+          <button id="addQuestion">Lägg till fråga</button>
+          <button id="startOwnQuiz">Starta Quiz</button>
+        </div>
+      </div>
+
       <div id="settingScreen" class="settingScreen">
         <button
           class="colorBtn"

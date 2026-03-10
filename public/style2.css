@@ -63,6 +63,7 @@ body{
     display: grid;
     justify-items: center;
     align-items: center;
+    row-gap: 1em;
 }
 
 .login-form-field{
@@ -91,7 +92,17 @@ body{
     color: var(--text);
     background-color: transparent;
     cursor: pointer;
-    outline: none; 
+    outline: none;
+    
+}
+.logingoBack{
+    width: 100%;
+  padding: 7px;
+  border: none;
+  color: var(--menuBg);
+  background-color: var(--text);
+  cursor: pointer;
+  outline: none;
 }
 .formBtn:hover{
     background-color: #bfbfbf;
